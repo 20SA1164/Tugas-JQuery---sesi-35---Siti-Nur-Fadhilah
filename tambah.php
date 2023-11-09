@@ -23,9 +23,9 @@
                 <h5 class="card-title">Data Produk</h5>
                 <form action="proses_tambah.php" method="post" enctype="multipart/form-data" id="tambah_barang">
                     <input class="form-control mb-3" type="text" placeholder="Kode Produk" name="kode_produk" id="kode_produk">
-                    <input class="form-control mb-3" type="file" name="fileToUpload" id="fileToUpload" required>
-                    <input class="form-control mb-3" type="text" placeholder="Nama Produk" name="nama_produk" required>
-                    <input class="form-control mb-3" type="text" placeholder="Deskripsi Produk" name="deskripsi" required>
+                    <input class="form-control mb-3" type="file" name="fileToUpload" id="fileToUpload">
+                    <input class="form-control mb-3" type="text" placeholder="Nama Produk" name="nama_produk" id="nama_produk">
+                    <input class="form-control mb-3" type="text" placeholder="Deskripsi Produk" name="deskripsi" id="deskripsi">
                     <div class="input-group mb-3">
                         <select class="form-select" name="kategori" id="kategori">
                             <option selected>Kategori Produk</option>
@@ -34,7 +34,7 @@
                             $query = mysqli_query($conn, "SELECT * FROM kategori_produk");
                             if (mysqli_num_rows($query) > 0) {
                                 while ($data = mysqli_fetch_array($query)) {
-                                    
+
                                     echo "<option value='" . $data["id_kategori"] . "'>" . $data["nama_kategori"] . "</option>";
                                 }
                             } else {
@@ -43,8 +43,8 @@
                             ?>
                         </select>
                     </div>
-                    <input class="form-control mb-3" type="number" placeholder="Harga Satuan" name="harga" required>
-                    <input class="form-control mb-3" type="number" placeholder="Stok" name="stok" required>
+                    <input class="form-control mb-3" type="number" placeholder="Harga Satuan" name="harga" id="harga">
+                    <input class="form-control mb-3" type="number" placeholder="Stok" name="stok" id="stok">
                     <div class="input-group mb-3">
                         <select class="form-select" name="supplier" id="supplier">
                             <option selected>Supplier</option>
@@ -53,7 +53,7 @@
                             $query = mysqli_query($conn, "SELECT * FROM supplier");
                             if (mysqli_num_rows($query) > 0) {
                                 while ($data = mysqli_fetch_array($query)) {
-                                    
+
                                     echo "<option value='" . $data["id_sup"] . "'>" . $data["nama"] . "</option>";
                                 }
                             } else {
@@ -63,7 +63,7 @@
                         </select>
                     </div>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <button type="submit" class="btn btn-info left">Submit</button>
+                        <input type="submit" id="submitBtn" value="Submit" class="btn btn-success" disabled>
                     </div>
 
                 </form>
@@ -85,15 +85,31 @@
                     },
                     success: function(response) {
                         if (response == "exists") {
-                            alert("Kode Produk sudah ada di database.");
+                            alert("Kode Produk yang anda masukkan sudah ada");
                             $("#kode_produk").val(""); // Clear the input field
                         }
                     }
                 });
             });
+            $(document).ready(function() {
+                $('input').on('input', function() {
+                    var allFilled = true;
+                    $('input').each(function() {
+                        if ($(this).val() === '') {
+                            allFilled = false;
+                            return false; // Exit the loop if any field is empty
+                        }
+                    });
+
+                    if (allFilled == true) {
+                        $('#submitBtn').prop('disabled', false);
+                    } else {
+                        $('#submitBtn').prop('disabled', true);
+                    }
+                });
+            });
         });
     </script>
-
 </body>
 
 </html>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 08 Nov 2023 pada 10.07
+-- Waktu pembuatan: 09 Nov 2023 pada 10.33
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -52,6 +52,7 @@ INSERT INTO `kategori_produk` (`id_kategori`, `nama_kategori`) VALUES
 
 CREATE TABLE `produk` (
   `id` int(11) NOT NULL,
+  `kode_produk` varchar(11) NOT NULL,
   `gambar` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `nama_produk` varchar(255) NOT NULL,
   `deskripsi` text NOT NULL,
@@ -67,15 +68,13 @@ CREATE TABLE `produk` (
 -- Dumping data untuk tabel `produk`
 --
 
-INSERT INTO `produk` (`id`, `gambar`, `nama_produk`, `deskripsi`, `id_produk_kategori`, `harga`, `stok`, `id_supplier`, `created_at`, `updated_at`) VALUES
-(15, 'images/sepak-bola.jpg', 'Bola ', 'Bola Sepak Lapangan Produk Original Kualitas premium', 3, 100000.00, 30, 4, '2023-11-08 08:48:05', '2023-11-08 08:48:05'),
-(16, 'images/ring holder.jpeg', 'Ring Holder Hp', 'RING STAND HP / IRING HOLDER CINCIN HANDPHONE RINGSTAND STANDING HP / RING STAND HOLDER JARI / GANTUNGAN HP', 4, 1000.00, 100, 2, '2023-11-08 08:48:05', '2023-11-08 09:01:16'),
-(44, 'images/mois skintific.jpeg', 'Moisturizer Skintific', 'Diformulasikan menggunakan teknologi 5X Ceramides yang meniru struktur skin barrier kita, moisturizer ini menggunakan 5 tipe Ceramide yang memiliki fungsi berbeda untuk menjaga kesehatan kulit (Ceramide NP, Ceramide AP, Ceramide NS, Ceramide AS, Ceramide EOP) ● Kandungan Ceramides dapat memperbaiki skin barrier, melembabkan kulit serta menenangkan sel kulit yang rusak ● Dilengkapi juga dengan kandungan lain seperti Hyaluronic Acid, Centella Asiatica, dan Marine Collagen untuk menghidrasi kulit secara mendalam ● Memiliki tekstur seperti gel yang sangat ringan pada kulit, moisturizer ini menyimpan banyak kandungan air sehingga dapat digunakan untuk semua tipe kulit wajah karena sifatnya yang cepat menyerap, tidak berminyak, tidak lengket, dan terdapat efek cooling sensation yang menyegarkan kulit', 1, 160000.00, 30, 3, '2023-11-08 08:48:05', '2023-11-08 08:48:05'),
-(45, 'images/volli.png', 'Bola Voli', 'Bola Volley MIKASA MV 2200 SUPER GOLD memiliki kualitas yang baik. Pantulan yang dihasilkan oleh bola voli ini juga maksimal. Untuk produk yang asli bahan dari bola voli ini adalah kulit karakter empuk sehingga tidak keras / sakit di tangan. Ringan dan kulit bola tidak mudah terkelupas sehingga tahan lama.', 3, 180000.00, 20, 3, '2023-11-08 08:48:05', '2023-11-08 08:58:16'),
-(46, 'images/serum the originote.jpeg', 'Serum The Originote', 'Hyalu C Serum bermanfaat mencerahkan kulit kusam, menjaga kelembapan wajah dan merawat peremajaan kulit.', 1, 40000.00, 60, 5, '2023-11-08 08:48:05', '2023-11-08 09:01:32'),
-(47, 'images/fresh care.jpg', 'Fresh Care ', 'FRESHCARE ROLL ON MINYAK ANGIN STRONG (HOT) 10 ML adalah minyak angin yang digunakan untuk membantu meredakan perut kembung, pusing, masuk angin dan mabuk perjalanan.', 2, 23000.00, 100, 3, '2023-11-08 08:48:05', '2023-11-08 08:48:05'),
-(48, 'images/20073495_1.jpg', 'Fruit Tea', 'Minuman teh rasa stroberi dan anggur dengan sensasi dingin. Dibuat dengan daun teh pilihan dan sari buah. Minuman teh yang praktis untuk menghilangkan haus dan menyegarkan harimu.', 6, 4000.00, 1000, 2, '2023-11-07 21:03:50', '2023-11-08 09:03:50'),
-(49, 'images/tic tac.png', 'Tic Tac', 'Dua Kelinci snack pilus tic tac rasa sapi panggang. Cara Penyimpanan : Simpan dilemari pendingin agar lebih lezat.', 5, 10000.00, 80, 4, '2023-11-07 21:05:33', '2023-11-08 09:05:33');
+INSERT INTO `produk` (`id`, `kode_produk`, `gambar`, `nama_produk`, `deskripsi`, `id_produk_kategori`, `harga`, `stok`, `id_supplier`, `created_at`, `updated_at`) VALUES
+(18, 'K-001', 'images/serum the originote.jpeg', 'Serum The Originote', 'Varian serum The Originote yang pertama adalah The Originote Hyalu-C Serum. Diformulasikan dengan 3 jenis vitamin C, 5 jenis Hyaluronic Acid, dan Flower Blend, serum The Originote ini mampu bertindak sebagai antioksidan.  Kombinasi bahan dalam The Originote Hyalu-C Serum juga dapat mencerahkan kulit kusam, melembabkan, serta merawat keremajaan kulit', 1, 45000.00, 30, 2, '2023-11-08 21:02:52', '2023-11-09 09:02:52'),
+(19, 'M-001', 'images/tic tac.png', 'Tic Tac', 'Dua Kelinci snack pilus tic tac rasa sapi panggang.', 5, 7100.00, 30, 4, '2023-11-08 21:21:21', '2023-11-09 09:21:21'),
+(20, 'MN-001', 'images/20073495_1.jpg', 'Fruit Tea', 'Minuman teh rasa stroberi dan anggur dengan sensasi dingin. Dibuat dengan daun teh pilihan dan sari buah. Minuman teh yang praktis untuk menghilangkan haus dan menyegarkan harimu.', 6, 3900.00, 100, 4, '2023-11-08 21:25:59', '2023-11-09 09:25:59'),
+(21, 'O-001', 'images/volli.png', 'Bola Voli', 'Bola Volley MIKASA MV 2200 SUPER GOLD memiliki kualitas yang baik. Pantulan yang dihasilkan oleh bola voli ini juga maksimal. Untuk produk yang asli bahan dari bola voli ini adalah kulit karakter empuk sehingga tidak keras / sakit di tangan. Ringan dan kulit bola tidak mudah terkelupas sehingga tahan lama.', 3, 170000.00, 30, 4, '2023-11-08 21:26:50', '2023-11-09 09:26:50'),
+(22, 'KE-001', 'images/fresh care.jpg', 'FreshCare', 'FreshCare berkhasiat untuk meringankan pusing-pusing, sakit kepala, perut kembung, masuk angin, mabuk perjalanan, gejala flu, pegal-pegal, dan gatal akibat gigitan seranggga.', 2, 23000.00, 50, 4, '2023-11-08 21:28:45', '2023-11-09 09:28:45'),
+(23, 'A-001', 'images/ring holder.jpeg', 'Ring Holder HP ', 'RING STAND HP / IRING HOLDER CINCIN HANDPHONE RINGSTAND STANDING HP / RING STAND HOLDER JARI / GANTUNGAN HP', 4, 690.00, 100, 5, '2023-11-08 21:30:14', '2023-11-09 09:30:14');
 
 -- --------------------------------------------------------
 
@@ -139,7 +138,7 @@ ALTER TABLE `kategori_produk`
 -- AUTO_INCREMENT untuk tabel `produk`
 --
 ALTER TABLE `produk`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT untuk tabel `supplier`

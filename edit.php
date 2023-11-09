@@ -16,6 +16,7 @@
 
     while ($p = mysqli_fetch_array($query)) {
         $id = $p["id"];
+        $kode_produk = $p["kode_produk"];
         $gambar = $p["gambar"];
         $produk = $p["nama_produk"];
         $deskripsi = $p["deskripsi"];
@@ -26,7 +27,7 @@
     }
     ?>
     <center>
-        <div class="card text-bg-light mb-3 mt-5" style="max-width: 50rem;">
+        <div class="card text-bg-light mb-3 mt-3" style="max-width: 50rem;">
             <div class="card-header">
                 <h3>EDIT PAGE</h3>
             </div>
@@ -34,7 +35,7 @@
                 <h5 class="card-title">Data Produk</h5>
                 <form action="proses_edit.php?id=<?php echo $id ?>" method="post" enctype="multipart/form-data">
                     <img src="<?php echo $gambar ?>" width="100">
-                    <input type="hidden" name="existingImage" value="<?php echo $gambar; ?>" src="<?php echo $gambar ?>">
+                    <input class="form-control mb-3" type="text" value="<?php echo $kode_produk ?>" name="kode_produk" disabled>
                     <input class="form-control mb-3" type="file" name="fileToUpload" id="fileToUpload">
                     <input class="form-control mb-3" type="text" value="<?php echo $produk ?>" name="nama_produk">
                     <input class="form-control mb-3" type="text" value="<?php echo $deskripsi ?>" name="deskripsi">
@@ -78,16 +79,79 @@
     </center>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script>
-        document.getElementById("submitButton").addEventListener("click", function(e) {
-            e.preventDefault(); // Prevent the form from submitting immediately
+        document.addEventListener("DOMContentLoaded", function() {
+            var originalValues = {
+                nama_produk: "<?php echo $produk ?>",
+                deskripsi: "<?php echo $deskripsi ?>",
+                kategori: "<?php echo $kategori ?>",
+                harga: "<?php echo $harga ?>",
+                stok: "<?php echo $stok ?>",
+                supplier: "<?php echo $supplier ?>"
+            };
 
-            // Show a confirmation alert
-            if (window.confirm("Apakah Anda yakin ingin menyimpan perubahan?")) {
-                // If the user clicks "OK" in the confirmation alert, submit the form
-                document.querySelector("form").submit();
+            var nama_produkInput = document.querySelector("input[name='nama_produk']");
+            var deskripsiInput = document.querySelector("input[name='deskripsi']");
+            var kategoriInput = document.getElementById("kategori");
+            var hargaInput = document.querySelector("input[name='harga']");
+            var stokInput = document.querySelector("input[name='stok']");
+            var supplierInput = document.getElementById("supplier");
+            var submitButton = document.getElementById("submitButton");
+
+            var initialValues = {
+                nama_produk: originalValues.nama_produk,
+                deskripsi: originalValues.deskripsi,
+                kategori: originalValues.kategori,
+                harga: originalValues.harga,
+                stok: originalValues.stok,
+                supplier: originalValues.supplier
+            };
+
+            var isDataChanged = false;
+
+            nama_produkInput.addEventListener("input", checkChanges);
+            deskripsiInput.addEventListener("input", checkChanges);
+            kategoriInput.addEventListener("change", checkChanges);
+            hargaInput.addEventListener("input", checkChanges);
+            stokInput.addEventListener("input", checkChanges);
+            supplierInput.addEventListener("change", checkChanges);
+
+            function checkChanges() {
+                var changesDetected =
+                    nama_produkInput.value !== initialValues.nama_produk ||
+                    deskripsiInput.value !== initialValues.deskripsi ||
+                    kategoriInput.value !== initialValues.kategori ||
+                    hargaInput.value !== initialValues.harga ||
+                    stokInput.value !== initialValues.stok ||
+                    supplierInput.value !== initialValues.supplier;
+
+                isDataChanged = changesDetected;
+
+                submitButton.disabled = !changesDetected;
             }
+
+            submitButton.disabled = true;
+
+            document.getElementById("submitButton").addEventListener("click", function(e) {
+                if (!isDataChanged) {
+                    e.preventDefault();
+                    alert("Tidak ada perubahan atau penambahan data.");
+                } else if (window.confirm("Apakah Anda yakin ingin menyimpan perubahan?")) {
+                    document.querySelector("form").submit();
+                } else {
+                    // Jika pengguna membatalkan aksi, kembalikan nilai input ke nilai asli
+                    nama_produkInput.value = initialValues.nama_produk;
+                    deskripsiInput.value = initialValues.deskripsi;
+                    kategoriInput.value = initialValues.kategori;
+                    hargaInput.value = initialValues.harga;
+                    stokInput.value = initialValues.stok;
+                    supplierInput.value = initialValues.supplier;
+
+                    isDataChanged = false;
+                    submitButton.disabled = true;
+                }
+            });
         });
-    </script>
+    </script>
 
 </body>
 
